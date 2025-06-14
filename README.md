@@ -1,103 +1,112 @@
-# ComputeKart
+# 🚀 ComputeKart – Nx Monorepo
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This is a monorepo powered by [Nx](https://nx.dev), built for scalable and maintainable frontend development.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## 📁 Project Structure
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- **apps/cloud-share** – Main React application.
+- **libs/ui-kit** – Shared UI component library using Tailwind CSS and integrated with Storybook.
+- **libs/ui-kit/tailwind.preset.js** – Centralized Tailwind config shared across the workspace.
 
-## Run tasks
+---
 
-To run the dev server for your app, use:
+## 📦 Setup
 
 ```sh
+# Install dependencies
+npm install
+
+# Serve the main application
 npx nx serve cloud-share
 ```
 
-To create a production bundle:
+---
+
+## 🧩 UI Library – `ui-kit`
+
+### ✅ Add a new shared component
 
 ```sh
+# Example: Add a new Button component inside ui-kit
+libs/ui-kit/src/lib/components/Button.tsx
+```
+
+> Make sure to write clean, reusable components and follow consistent naming conventions.
+
+### ✅ Tailwind Usage
+
+Tailwind is configured inside `libs/ui-kit/tailwind.preset.js` and extended via `tailwind.config.js` in the root/app.
+
+To use shared styles:
+
+```tsx
+<div className="text-primary bg-accent p-4 rounded-lg">Shared UI Component</div>
+```
+
+---
+
+## 📚 Storybook for UI Development
+
+Storybook is set up for `ui-kit` to build and test components in isolation.
+
+
+```sh
+# Start Storybook locally
+npx nx run ui-kit:storybook
+
+# Build static Storybook site
+npx nx run ui-kit:build-storybook
+
+# Output: dist/storybook/ui-kit/index.html
+```
+
+---
+
+## ⚙️ Useful Nx Commands
+
+```sh
+# Run the main app
+npx nx serve cloud-share
+
+# Build the main app
 npx nx build cloud-share
+
+# Run Storybook
+npx nx run ui-kit:storybook
+
+# Build Storybook
+npx nx run ui-kit:build-storybook
+
+# Lint any project
+npx nx lint cloud-share
+npx nx lint ui-kit
+
+# Run unit tests
+npx nx test ui-kit
+
+# Visualize the dependency graph
+npx nx graph
 ```
 
-To see all available targets to run for a project, run:
+---
 
-```sh
-npx nx show project cloud-share
-```
+## 🛠️ Project Rules
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+- ✅ **All reusable UI must go inside `ui-kit`**
+- ✅ **Use Tailwind utility classes for styling**
+- ✅ **Write a Storybook story for every new component**
+- ✅ **Ensure all changes are tested and linted**
+- ✅ **Use `nx graph` to understand project relationships**
+- ❌ **Never write shared components directly inside apps**
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Add new projects
+## 📘 References
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+- [Nx Docs](https://nx.dev)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Storybook](https://storybook.js.org)
 
-Use the plugin's generator to create new projects.
+---
 
-To generate a new application, use:
-
-```sh
-npx nx g @nx/react:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/react:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-# compute-kart
-# compute-kart
+> Made with 💻 using Nx + React + Tailwind + Storybook
